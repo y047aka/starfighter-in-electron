@@ -1,0 +1,31 @@
+{
+  "main": "./dist/main/index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "watch:html": "cpx ./src/index.html ./dist -w",
+    "watch:assets": "cpx \"./src/renderer/assets/**/*\" ./dist/renderer/assets -w",
+    "watch:main": "cpx \"./src/main/*\" ./dist/main -w",
+    "watch:renderer": "cpx ./src/renderer/index.js ./dist/renderer -w",
+    "watch:elm": "elm make ./src/renderer/Main.elm --output=./dist/renderer/elm.js",
+    "watch": "npm-run-all -p watch:*",
+    "compile:html": "cpx ./src/index.html ./dist",
+    "compile:assets": "cpx \"./src/renderer/assets/**/*\" ./dist/renderer/assets",
+    "compile:main": "cpx \"./src/main/*\" ./dist/main",
+    "compile:renderer": "cpx ./src/renderer/index.js ./dist/renderer",
+    "compile:elm": "elm make ./src/renderer/Main.elm --optimize --output=./dist/renderer/elm.optimized.js",
+    "compile": "npm-run-all -p compile:*",
+    "minify:elm": "google-closure-compiler --js=./dist/renderer/elm.optimized.js --js_output_file=./dist/renderer/elm.js && rm ./dist/renderer/elm.optimized.js",
+    "build": "npm-run-all -s clean compile minify:elm",
+    "start": "npm-run-all -s clean watch",
+    "electron": "APP_DEV=true electron ."
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "electron": "^5.0.6",
+    "electron-reload": "^1.4.0",
+    "elm": "0.19.0-no-deps",
+    "google-closure-compiler": "^20190618.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.3"
+  }
+}
