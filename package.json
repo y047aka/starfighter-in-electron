@@ -6,7 +6,7 @@
     "watch:assets": "cpx \"./src/assets/**/*\" ./dist/assets -w",
     "watch:main": "cpx \"./src/main/*\" ./dist/main -w",
     "watch:renderer": "cpx ./src/renderer/index.js ./dist/renderer -w",
-    "watch:elm": "elm make ./src/renderer/Main.elm --output=./dist/renderer/elm.js",
+    "watch:elm": "chokidar ./src/renderer/*.elm -c \"elm make ./src/renderer/Main.elm --output=./dist/renderer/elm.js\" --initial",
     "watch:sass": "chokidar ./src/*.scss -c \"sass ./src/style.scss ./dist/style.css --no-source-map\" --initial",
     "watch": "npm-run-all -p watch:*",
     "compile:html": "cpx ./src/index.html ./dist",
